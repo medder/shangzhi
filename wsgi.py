@@ -1,0 +1,1 @@
+from zongfuzaixian import app
