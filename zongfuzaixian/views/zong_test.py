@@ -26,7 +26,7 @@ def zong_test():
         map(sha1.update, ls)
         hashcode = sha1.hexdigest()
 
-        print "handle/GET func: hashcode, signature: ", hashcode, signature
+        print("handle/GET func: hashcode, signature: ", hashcode, signature)
         if hashcode == signature:
             return echostr
         else:
