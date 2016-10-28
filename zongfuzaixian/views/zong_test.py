@@ -17,7 +17,7 @@ def zong_test():
         nonce = args.get('nonce')
         echostr = args.get('echostr')
 
-        token = "shagnzhikeji"
+        token = "shangzhikeji"
 
         ls = [token, timestamp, nonce]
         ls.sort()
