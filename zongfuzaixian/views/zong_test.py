@@ -23,7 +23,7 @@ def zong_test():
         ls.sort()
 
         sha1 = hashlib.sha1()
-        map(sha1.update, ls)
+        map(sha1.update, (s.encode() for i in ls))
         hashcode = sha1.hexdigest()
 
         print("handle/GET func: hashcode, signature: ", hashcode, signature)
