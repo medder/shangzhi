@@ -1,0 +1,28 @@
+
+table.dataframe, .dataframe th, .dataframe td {
+  /*border: 2px;*/
+  /*border-bottom: 1px solid #C8C8C8;*/
+  border-collapse: collapse;
+  text-align:center;
+  padding: 10px;
+  align:center
+  /*margin-bottom: 40px;*/
+  font-size: 0.9em;
+  margin: 0 auto;
+}
+
+.anti_cheat_result{
+  text-align:center;
+}
+
+select {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: gray;
+    display: inline-block;
+    font-size: 14px;
+    height: 26px;
+    line-height: 26px;
+    padding: 4px;
+    width: 200px;
+}

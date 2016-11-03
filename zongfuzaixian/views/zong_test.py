@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 import hashlib
 
-from flask import Blueprint,request
+from flask import Blueprint, request, render_template
 
 mod = Blueprint('zong_test', __name__, url_prefix='/wx/')
 
@@ -10,7 +10,8 @@ def zong_test():
     args = request.args.to_dict()
     print(args)
     if len(args) == 0:
-        return 'Hello Zongfuzaixian'
+        #return 'Hello Zongfuzaixian'
+        return render_template('base.html')
     else:
         signature = args.get('signature')
         timestamp = args.get('timestamp')
