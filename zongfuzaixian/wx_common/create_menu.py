@@ -78,7 +78,20 @@ def create_menu():
                     }]
                 }'''
     #body = json.dumps(menu_body).encode('utf-8')
-    body = menu_body.encode('utf-8')
+    view_menu_body = '''{
+                         "button": [
+                         {
+                             "type": "view",
+                             "name": "view",
+                             "url": "http://www.zhongfor.com/api/"
+                         },
+                         {
+                             "type": "click",
+                             "name": "click",
+                             "key": "zf_click"
+                         }]
+    }'''
+    body = view_menu_body.encode('utf-8')
     print("----", body)
     request = urllib.request.Request(url, body)
     response = urllib.request.urlopen(request)

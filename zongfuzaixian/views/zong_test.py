@@ -3,7 +3,7 @@ import hashlib
 
 from flask import Blueprint, request, render_template
 
-mod = Blueprint('zong_test', __name__, url_prefix='/wx/')
+mod = Blueprint('zong_test', __name__, url_prefix='/api/')
 
 @mod.route('/')
 def zong_test():
@@ -32,3 +32,11 @@ def zong_test():
             return echostr
         else:
             return ""
+
+@mod.route('/sign')
+def sign_in():
+    args = request.args.to_dict()
+    print(args)
+    return render_template('base.html')
+
+
