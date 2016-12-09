@@ -5,12 +5,13 @@ from flask import Blueprint, request, render_template
 
 mod = Blueprint('zong_test', __name__, url_prefix='/api/')
 
+
 @mod.route('/')
 def zong_test():
     args = request.args.to_dict()
     print(args)
     if len(args) == 0:
-        #return 'Hello Zongfuzaixian'
+        # return 'Hello Zongfuzaixian'
         return render_template('base.html')
     else:
         signature = args.get('signature')
@@ -33,6 +34,7 @@ def zong_test():
         else:
             return ""
 
+
 @mod.route('/sign')
 def sign_in():
     args = request.args.to_dict()
@@ -40,3 +42,5 @@ def sign_in():
     return render_template('base.html')
 
 
+def test():
+    print('aa')
