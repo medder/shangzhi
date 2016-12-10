@@ -2,7 +2,8 @@
 
 import urllib.request
 import json
-from get_access_token import get_access_token
+from zongfuzaixian.wx_common.get_access_token import get_access_token
+
 
 def create_menu():
     access_token = get_access_token()
@@ -83,7 +84,7 @@ def create_menu():
                          {
                              "type": "view",
                              "name": "view",
-                             "url": "http://www.zhongfor.com/api/"
+                             "url": "http://www.zhongfor.com/wx/"
                          },
                          {
                              "type": "click",

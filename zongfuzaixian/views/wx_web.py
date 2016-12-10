@@ -3,7 +3,7 @@ import hashlib
 
 from flask import Blueprint, request, render_template
 
-mod = Blueprint('zong_test', __name__, url_prefix='/api/')
+mod = Blueprint('zong_test', __name__, url_prefix='/wx_web')
 
 
 @mod.route('/')

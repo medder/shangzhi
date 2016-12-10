@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 
 import urllib.request
-from get_access_token import get_access_token
+from zongfuzaixian.wx_common.get_access_token import get_access_token
 
 def delete_menu():
     access_token = get_access_token()
