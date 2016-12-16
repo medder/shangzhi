@@ -30,6 +30,7 @@ def create_app(config_object=ProdConfig, register_blue=True):
     app.config.from_object(config_object)
     register_extensions(app)
     register_blueprints(app)
+    register_shellcontext(app)
 
     return app
 
@@ -83,6 +84,18 @@ def register_loading(app):
                 # if hasattr(current_user, 'posts'):
                 #     for post in current_user.posts:
                 #         identity.provides.add(RoleNeed(post.id))
+
+
+def register_shellcontext(app):
+    """Register shell context objects."""
+
+    def shell_context():
+        """Shell context objects."""
+        return {
+            'db': db,
+        }
+
+    app.shell_context_processor(shell_context)
 
 
 CONFIG = DevConfig if get_debug_flag() else ProdConfig

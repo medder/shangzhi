@@ -19,12 +19,13 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WEIXIN_TOKN = "shangzhikeji"
 
+
 class ProdConfig(Config):
     """Production configuration."""
 
     ENV = 'prod'
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('WX_SQLALCHEMY_DATABASE_URI_PROD')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('WX_SQLALCHEMY_DATABASE_URI')
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
 
 
@@ -36,7 +37,7 @@ class DevConfig(Config):
     DB_NAME = 'dev.db'
     # Put the db file in project root
     DB_PATH = os.path.join(Config.PROJECT_ROOT, DB_NAME)
-    SQLALCHEMY_DATABASE_URI = os.environ.get('WX_SQLALCHEMY_DATABASE_URI_DEV')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('WX_SQLALCHEMY_DATABASE_URI')
     DEBUG_TB_ENABLED = True
     ASSETS_DEBUG = True  # Don't bundle/minify static assets, which mean develop get the total page
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
