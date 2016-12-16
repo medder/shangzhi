@@ -3,7 +3,7 @@ import hashlib
 
 from flask import Blueprint, request, render_template
 
-mod = Blueprint('zong_test', __name__, url_prefix='/wx_web')
+mod = Blueprint('wx_web', __name__, url_prefix='/wx_web')
 
 
 @mod.route('/')
@@ -44,3 +44,16 @@ def sign_in():
 
 def test():
     print('aa')
+
+
+@mod.route('/binding')
+def binding():
+
+    print("reqests.headers", request.headers)
+    print("request.args", request.args)
+    print("request.base_url", request.base_url)
+    print("request.query_string", request.query_string)
+    print("request.referrer", request.referrer)
+    print("request.json", request.json)
+
+    return render_template('binding.html')
