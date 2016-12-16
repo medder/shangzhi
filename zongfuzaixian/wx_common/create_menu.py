@@ -19,7 +19,7 @@ def create_menu():
                             "key": "zf_guanyuwomen"
                         },
                         {
-                            "type": "click",
+                            "type": "view",
                             "name": "账号绑定",
                             "url": "http://www.zhongfor.com/wx_web/binding"
                         },

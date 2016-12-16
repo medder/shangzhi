@@ -37,7 +37,7 @@ def create_app(config_object=ProdConfig, register_blue=True):
 
 def register_blueprints(app):
     """Register Flask blueprints."""
-    app.register_blueprint(wx_web.mod)
+    app.register_blueprint(wx_web.wx_web_blue)
 
 
 def register_extensions(app):

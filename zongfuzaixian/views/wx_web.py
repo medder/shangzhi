@@ -3,10 +3,11 @@ import hashlib
 
 from flask import Blueprint, request, render_template
 
-mod = Blueprint('wx_web', __name__, url_prefix='/wx_web')
+#  This is we can using web and robot in same url_prefix
+wx_web_blue = Blueprint('wx_web', __name__, url_prefix='/wx')
 
 
-@mod.route('/')
+@wx_web_blue.route('/')
 def zong_test():
     args = request.args.to_dict()
     print(args)
@@ -35,7 +36,7 @@ def zong_test():
             return ""
 
 
-@mod.route('/sign')
+@wx_web_blue.route('/sign')
 def sign_in():
     args = request.args.to_dict()
     print(args)
@@ -46,7 +47,7 @@ def test():
     print('aa')
 
 
-@mod.route('/binding')
+@wx_web_blue.route('/binding')
 def binding():
 
     print("reqests.headers", request.headers)
