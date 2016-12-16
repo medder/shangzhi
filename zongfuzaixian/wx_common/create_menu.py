@@ -21,7 +21,7 @@ def create_menu():
                         {
                             "type": "view",
                             "name": "账号绑定",
-                            "url": "http://www.zhongfor.com/wx_web/binding"
+                            "url": "http://www.zhongfor.com/wx/binding"
                         },
                         {
                             "type": "click",
