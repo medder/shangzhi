@@ -2,7 +2,9 @@
 import hashlib
 
 from flask import Blueprint, request, render_template
-
+from zongfuzaixian.wx_common.wx_api import get_wx_openid
+from zongfuzaixian.operations.op_binding import bind_telephone
+from zongfuzaixian.forms.form import BindingForm
 #  This is we can using web and robot in same url_prefix
 wx_web_blue = Blueprint('wx_web', __name__, url_prefix='/wx')
 
@@ -47,14 +49,38 @@ def test():
     print('aa')
 
 
-@wx_web_blue.route('/binding')
+@wx_web_blue.route('/binding', methods=['GET', 'POST'])
 def binding():
 
-    print("reqests.headers", request.headers)
+    print("request.headers", request.headers)
     print("request.args", request.args)
     print("request.base_url", request.base_url)
     print("request.query_string", request.query_string)
     print("request.referrer", request.referrer)
     print("request.json", request.json)
+    print("request.form", request.form)
 
-    return render_template('binding.html')
+    if request.method == "GET":
+        bind_form = BindingForm()
+        # come from wx redirect
+        code = request.args.get("code")
+        wx_openid = get_wx_openid(code)
+        print(wx_openid)
+        bind_form.wx_openid.data = wx_openid
+        return render_template('binding.html', form=bind_form)
+
+    elif request.method == "POST":
+        # come from client click
+        bind_form = BindingForm(request.form)
+        if bind_form.validate():
+            wx_openid = bind_form.wx_openid.data
+            telephone = bind_form.telephone.data
+            token = bind_form.token.data
+            print("wx_openid:{}, telephone:{}, token:{}".format(
+                wx_openid, telephone, token))
+            ret, msg = bind_telephone(wx_openid, telephone)
+            # TODO return what after success
+            return render_template('base.html', ret=ret, msg=msg)
+        else:
+            return render_template('base.html')
+

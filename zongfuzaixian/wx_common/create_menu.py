@@ -2,13 +2,15 @@
 
 import urllib.request
 import json
-from zongfuzaixian.wx_common.get_access_token import get_access_token
-
+from zongfuzaixian.wx_common.get_access_token import get_access_token, APPID
+binding_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={appid}&redirect_uri=http://www.zhongfor.com/wx/binding&response_type=code&scope=snsapi_base&state=1#wechat_redirect".format(
+    appid=APPID
+)
 
 def create_menu():
     access_token = get_access_token()
     url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}".format(access_token)
-    menu_body = '''{
+    menu_body = {
                     "button":[
                     {
                         "name": "众服在线",
@@ -21,7 +23,7 @@ def create_menu():
                         {
                             "type": "view",
                             "name": "账号绑定",
-                            "url": "http://www.zhongfor.com/wx/binding"
+                            "url": binding_url
                         },
                         {
                             "type": "click",
@@ -76,10 +78,11 @@ def create_menu():
                             "name": "工程师接单",
                             "key": "zf_gongchengshijiedan"
                         }]
-                    }]
-                }'''
-    body = menu_body.encode('utf-8')
-
+                    }
+                    ]
+                }
+    body = bytes(json.dumps(menu_body, ensure_ascii=False), encoding="utf-8")
+    # body =
     # view_menu_body = '''{
     #                      "button": [
     #                      {
