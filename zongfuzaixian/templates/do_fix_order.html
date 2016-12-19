@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>维修维保</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+          rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+
+<form class="form-horizontal" action="{{ url_for('wx_web.do_fix_order') }}"
+      method="POST">
+
+    {{ form.hidden_tag() }}
+
+    <fieldset>
+
+        <div class="form-group">
+            <label for="fix_type" class="control-label col-xs-2">维修类型</label>
+            <div class="input-group col-xs-4">
+                <!--<input type="email" class="form-control" id="title" placeholder="title">-->
+                {{ form.fix_type( id="fix_type", class="form-control", required="" ,
+                         onchange="change_price()") }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fix_number" class="control-label col-xs-2">故障数量</label>
+            <div class="input-group col-xs-4">
+                <!--<input type="email" class="form-control" id="title" placeholder="title">-->
+                {{ form.fix_number(
+                        id="fix_number", class="form-control", required="",
+                        onchange="change_price()"
+                        ) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="client_contact"
+                   class="control-label col-xs-2">联系人</label>
+            <div class="input-group col-xs-4">
+                <!--<input type="email" class="form-control" id="title" placeholder="title">-->
+                {{ form.client_contact( id="client_contact", class="form-control", required="" ) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="client_phone"
+                   class="control-label col-xs-2">联系电话</label>
+            <div class="input-group col-xs-4">
+                <!--<input type="email" class="form-control" id="title" placeholder="title">-->
+                {{ form.client_phone( id="client_phone", class="form-control", required="" ) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="service_address"
+                   class="control-label col-xs-2">服务地址</label>
+            <div class="input-group col-xs-4">
+                <!--<input type="email" class="form-control" id="title" placeholder="title">-->
+                {{ form.service_address( id="service_address", class="form-control", required="" ) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="desc"
+                   class="control-label col-xs-2">故障描述</label>
+            <div class="input-group col-xs-4">
+                <!--<input type="email" class="form-control" id="title" placeholder="title">-->
+                {{ form.desc( id="desc", class="form-control", required="" ) }}
+            </div>
+        </div>
+
+
+        <div class="form-group" id="price-div">
+            <label for="price"
+                   class="control-label col-xs-2">服务价格</label>
+            <div class="input-group col-xs-4">
+                <!--<input type="email" class="form-control" id="title" placeholder="title">-->
+                {{ form.price( id="price", class="form-control", required="" , readonly="readonly") }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="submit" class="control-label col-xs-2">提交</label>
+            <div class="col-md-offset-2">
+                {{ form.submit(id="submit", class="btn btn-primary") }}
+            </div>
+        </div>
+    </fieldset>
+
+</form>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../static/js/jquery-1.12.3.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    function change_price()
+    {
+        var fix_value_list = new Array("video_monitor", "anti_thief", "computer_network", "wifi_network");
+        var fix_num = document.getElementById("fix_number").value
+        console.log("fix_num", fix_num)
+        var price_item = document.getElementById("price")
+        var fix_type = document.getElementById("fix_type").value
+        console.log("fix_type", fix_type)
+        var old_price = price_item.value
+        console.log("old_price", old_price)
+        var price_div = document.getElementById("price-div")
+        if(fix_value_list.indexOf(fix_type) != -1){
+            if (fix_num <= 3){
+                price_item.value = 200
+            }
+            else {
+                price_item.value = 200 + (fix_num - 3) * 50
+            }
+            price_div.style.display = "true"
+        }
+        else if(fix_type == "reinstall"){
+            price_item.value = 60 * fix_num
+            price_div.style.display = "true"
+        }
+        else{
+            price_div.style.display = "none"
+        }
+    }
+
+</script>
+
+
+</body>
+</html>

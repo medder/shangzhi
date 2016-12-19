@@ -87,3 +87,26 @@ class OpenidBinding(SurrogatePK, Model):
     def __init__(self, **kwargs):
         """Create instance."""
         db.Model.__init__(self,**kwargs)
+
+
+class FixOrder(SurrogatePK, Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    wx_openid = db.Column(db.String(80), unique=True)
+    fix_type = db.Column(db.String(20), unique=True)
+    service_address = db.Column(db.String(200))
+    fix_number = db.Column(db.Integer())
+    client_contact = db.Column(db.String(25), unique=True)
+    client_phone = db.Column(db.String(15), unique=True)
+    desc = db.Column(db.String(200))
+    price = db.Column(db.Integer())
+    status = db.Column(db.Integer())
+    # 0 is close # 1 is open to be accept
+    # 2 is accept and handing 3 is hander to check 4 checked it finished
+    invalid = db.Column(db.Boolean())
+    # 0 is not true
+    create_time = db.Column(db.DateTime, default=dt.datetime.now)
+    update_time = db.Column(db.DateTime, default=dt.datetime.now, onupdate=dt.datetime.now)
+
+    def __init__(self, **kwargs):
+        """Create instance."""
+        db.Model.__init__(self,**kwargs)

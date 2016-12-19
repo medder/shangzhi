@@ -2,10 +2,10 @@ from zongfuzaixian.extensions import robot
 from flask import Blueprint, request, render_template
 
 
-@robot.handler
-def hello(message):
-    print(message)
-    return render_template('base.html')
+# @robot.handler
+# def hello(message):
+#     print(message)
+#     return render_template('base.html')
 
 
 @robot.error_page
