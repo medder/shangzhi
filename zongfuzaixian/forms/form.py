@@ -39,7 +39,7 @@ class FixOrderFrom(Form):
         ("wifi_network", fix_type_dict["wifi_network"], ),
         ("reinstall", fix_type_dict["reinstall"], ),
         ("printer", fix_type_dict["printer"], ),
-    ], default='video_monitor')
+    ], default="video_monitor")
 
     service_address = StringField("telephone", validators=[DataRequired()])
     fix_number = IntegerField("fix_number", validators=[DataRequired()])

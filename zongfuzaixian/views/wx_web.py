@@ -99,6 +99,7 @@ def do_fix_order():
         if not already_binding:
             return render_template("base.html", msg=msg)
         fix_order_form.wx_openid.data = wx_openid
+        fix_order_form.price.data = 200  # default type with default value
         return render_template('do_fix_order.html', form=fix_order_form)
 
     elif request.method == "POST":
@@ -125,3 +126,13 @@ def do_fix_order():
         else:
             return render_template('do_fix_order')
 
+
+@wx_web_blue.route('/client', methods=['GET', 'POST'])
+def client():
+    if request.method == "GET":
+        code = request.args.get("code")
+        wx_openid = get_wx_openid(code)
+        already_binding, msg = check_binding(wx_openid)
+        if not already_binding:
+            return render_template("base.html", msg=msg)
+        return render_template('client.html', wx_openid=wx_openid)
