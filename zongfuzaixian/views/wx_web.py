@@ -2,19 +2,22 @@
 import hashlib
 
 from flask import Blueprint, request, render_template
-from zongfuzaixian.wx_common.wx_api import get_wx_openid
-from zongfuzaixian.operations.op_binding import (
-    bind_telephone,
-    check_binding
-)
+
 from zongfuzaixian.forms.form import (
     BindingForm,
     FixOrderFrom
 )
-
-from zongfuzaixian.operations.op_fix_order import (
-    add_fix_order
+from zongfuzaixian.operations.op_binding import (
+    bind_telephone,
+    check_binding
 )
+from zongfuzaixian.operations.op_fix_order import (
+    add_fix_order,
+    get_fix_orders,
+    get_fix_order,
+)
+from zongfuzaixian.wx_common.wx_api import get_wx_openid
+
 #  This is we can using web and robot in same url_prefix
 wx_web_blue = Blueprint('wx_web', __name__, url_prefix='/wx')
 
@@ -61,7 +64,6 @@ def test():
 
 @wx_web_blue.route('/binding', methods=['GET', 'POST'])
 def binding():
-
     if request.method == "GET":
         bind_form = BindingForm()
         # come from wx redirect
@@ -89,7 +91,6 @@ def binding():
 
 @wx_web_blue.route('/do_fix_order', methods=['GET', 'POST'])
 def do_fix_order():
-
     if request.method == "GET":
         fix_order_form = FixOrderFrom()
         # come from wx redirect
@@ -118,7 +119,8 @@ def do_fix_order():
             print("wx_openid:{}, fix_type:{}, fix_number:{}, price:{}".format(
                 wx_openid, fix_type, fix_number, price))
             ret, msg = add_fix_order(
-                wx_openid, fix_type, service_address, fix_number, client_contact,
+                wx_openid, fix_type, service_address, fix_number,
+                client_contact,
                 client_phone, desc, price
             )
             # TODO return what after success
@@ -135,4 +137,20 @@ def client():
         already_binding, msg = check_binding(wx_openid)
         if not already_binding:
             return render_template("base.html", msg=msg)
-        return render_template('client.html', wx_openid=wx_openid)
+        fix_orders = get_fix_orders(wx_openid=wx_openid)
+        print(fix_orders)
+        return render_template(
+            'client.html',
+            wx_openid=wx_openid,
+            fix_orders=fix_orders
+        )
+
+@wx_web_blue.route('/fix_order/<string:wx_openid>/<int:fix_order_id>')
+def fix_order(wx_openid, fix_order_id):
+    fix_order = get_fix_order(wx_openid, fix_order_id)
+    fix_order_form = FixOrderFrom()
+    fix_order_form.set_data_fields(fix_order)
+    return render_template(
+        'fix_order.html',
+        form=fix_order_form
+    )

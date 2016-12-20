@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,8 @@
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+          rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -16,14 +17,28 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
+</head>
+<body>
+
+        <div class="row">
+        <div class="col-lg-9">
+            {% for fix_order in fix_orders %}
+                <div class="row">
+                    <div class="col-lg-9"><h3>{{ fix_order.client_contact }}</h3></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        {{ fix_order.create_time |  safe }}
+                        <a href="{{ url_for('wx_web.fix_order', wx_openid=wx_openid, fix_order_id=fix_order.id) }}">详情</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
 
 
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="../static/js/jquery-1.12.3.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../static/js/bootstrap.min.js"></script>
-  </body>
+    <script src="{{ url_for('static', filename="js/jquery-1.12.3.js" )}}"></script>
+    <script src="{{ url_for('static', filename="js/bootstrap.min.js" )}}"></script>
+</body>
 </html>

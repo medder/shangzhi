@@ -48,3 +48,17 @@ class FixOrderFrom(Form):
     desc = StringField("desc")
     price = StringField("price")
     submit = SubmitField("submit")
+
+    def set_data_fields(self, fix_order_obj):
+        self.wx_openid.data = fix_order_obj.wx_openid
+        self.fix_type.data = fix_order_obj.fix_type
+        self.fix_number.data = fix_order_obj.fix_number
+        self.service_address.data = fix_order_obj.service_address
+        self.client_contact.data = fix_order_obj.client_contact
+        self.client_phone.data = fix_order_obj.client_phone
+        self.desc.data = fix_order_obj.desc
+        self.price.data = fix_order_obj.price
+
+        # add a data for show
+        self.id = fix_order_obj.id
+
